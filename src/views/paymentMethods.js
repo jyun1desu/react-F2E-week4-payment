@@ -5,9 +5,8 @@ import cvPayIcon from '../assets/shop.svg';
 import webATMPayIcon from '../assets/web-atm.svg';
 import atmPayIcon from '../assets/atm.svg';
 import { color } from '../style/color';
-
-//components
-import ToNextButton from './button';
+//router
+import {Link} from 'react-router-dom';
 
 const PaymentsPage = styled.div`
     display: flex;
@@ -28,12 +27,13 @@ const PaymentsPage = styled.div`
       flex-wrap: wrap;
       justify-content: center;
       margin-top:90px;
+      width:100%;
         
       .each_method{
         &+.each_method{
           margin-left: 20px;
         }
-        &:hover{
+        &:focus,&:hover{
           background-color:${color.selected_color};
           .icon{
             filter: brightness(0) invert(100%);
@@ -47,7 +47,6 @@ const PaymentsPage = styled.div`
         padding: 30px;
         background:#f7f7f7;
         border-radius:5px;
-        text-align: center;
         box-sizing: border-box;
         display:flex;
         flex-direction: column;
@@ -56,11 +55,26 @@ const PaymentsPage = styled.div`
               max-height:55px;
           }
           .title{
+              width:100%;
               font-size:14px;
+              text-align: center;
               letter-spacing: 1.5px;
               margin-top:10px;
           }
         }
+    }
+    .to_next_page{
+      color: #fff;
+      font-size:14px;
+      padding:10px 15px;
+      letter-spacing: 1.5px;
+      border-radius: 5px;
+      margin-top:20px;
+    
+      margin-left:auto;
+      background-color:${color.selected_color};
+
+      text-decoration: none;
     }
 `
 
@@ -78,13 +92,13 @@ const page = () => {
             <p className="title">STEP1：選擇付款方式</p>
             <div className="methods_list">
                 {payMethods.map((m, index) => {
-                    return <a className="each_method" key={`payment${index}`}>
+                    return <button className="each_method" key={`payment${index}`}>
                         <img className="icon" src={m.icon} alt="" />
-                        <p className="title">{m.method}</p>
-                    </a>
+                        <span className="title">{m.method}</span>
+                    </button>
                 })}
             </div>
-            <ToNextButton text="下一步" usage="nextPage"/>
+            <Link className="to_next_page" to="/pay_and_ship_form">下一頁</Link>
         </PaymentsPage>
     );
 }

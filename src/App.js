@@ -6,13 +6,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 //components
 import NowProgress from './components/currentProgress';
 import OrderDetail from './components/orderDetail';
 import BackToStoreButton from './components/button';
-import PaymentMethods from './components/paymentMethods';
+//views
+import PaymentMethods from './views/paymentMethods';
+// import InputForm from './views/informationInput';
+// import SucessPage from './views/sucessPage';
+
 
 const Home = styled.div`
   height: 100%;
@@ -33,7 +36,7 @@ const Home = styled.div`
   }
 
   .container{
-    flex-basis: 70%;
+    flex-basis: 80%;
     z-index:1;
 
     .content{
@@ -69,9 +72,15 @@ const App = () => {
             </div>
             <div className="main_info_box">
               <Switch>
-                <Route path="/">
+                <Route exact path="/">
                   <PaymentMethods/>
                 </Route>
+                {/* <Route exact path="/pay_and_ship_form">
+                  <InputForm/>
+                </Route>
+                <Route exact path="/sucess">
+                  <SucessPage/>
+                </Route> */}
               </Switch>
             </div>
           </main>
