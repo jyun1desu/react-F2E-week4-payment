@@ -1,12 +1,11 @@
-// import logo from './logo.svg';
-// import './App.css';
 import styled from 'styled-components';
+import { color } from './style/color';
 
 const Wrapper = styled.div`
   display:flex;
   justify-content: center;
   h1{
-    color: pink;
+    color: ${color.main_background_color};
   }
 `
 
