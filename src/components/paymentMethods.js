@@ -48,8 +48,8 @@ const PaymentsPage = styled.div`
             color:#fff;
           }
         }
-        margin-bottom: 20px;;
-        flex: 0 0 25%;
+        margin-bottom: 20px;
+        flex: 0 1 30%;
         padding: 30px;
         background:#f7f7f7;
         border-radius:5px;
@@ -84,10 +84,10 @@ const page = () => {
             <p className="title">STEP1：選擇付款方式</p>
             <div className="methods_list">
                 {payMethods.map((m, index) => {
-                    return <div className="each_method" key={`payment${index}`}>
+                    return <a className="each_method" key={`payment${index}`}>
                         <img className="icon" src={m.icon} alt="" />
                         <p className="title">{m.method}</p>
-                    </div>
+                    </a>
                 })}
             </div>
             <ToNextButton text="下一步" usage="nextPage"/>

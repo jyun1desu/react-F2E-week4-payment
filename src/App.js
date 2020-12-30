@@ -40,7 +40,7 @@ const App = () => {
   return (
     <Home>
       <div className="container">
-        <NowProgress />
+        <NowProgress nowStep='choosePayMethod' />
         <main className="content">
           <div className="sub_content">
             <OrderDetail/>

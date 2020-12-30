@@ -10,7 +10,6 @@ const BackToPrevious = styled.button`
   border: none;
   border-radius: 5px;
   margin-top:20px;
-  cursor: pointer;
 
   &.to_next_button{
     margin-left:auto;

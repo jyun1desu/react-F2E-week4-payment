@@ -3,7 +3,7 @@ import { color } from '../style/color';
 
 const Block = styled.div`
     background-color:#F3F3F3;
-    padding:25px;
+    padding:25px 40px 25px 25px;
     letter-spacing: 2px;
     border-radius: 10px 0 0 10px;
     white-space:nowrap;
