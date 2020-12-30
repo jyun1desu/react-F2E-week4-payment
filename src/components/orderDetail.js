@@ -6,6 +6,7 @@ const Block = styled.div`
     padding:25px;
     letter-spacing: 2px;
     border-radius: 10px 0 0 10px;
+    white-space:nowrap;
 
     .title{
         font-size: 18px;

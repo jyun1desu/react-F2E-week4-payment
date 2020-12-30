@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { color } from './style/color';
-import backgroundPattern from './assets/footer-background.svg'
+import backgroundPattern from './assets/footer-background.svg';
 //components
-import NowProgress from './components/currentProgress'
-import OrderDetail from './components/orderDetail'
+import NowProgress from './components/currentProgress';
+import OrderDetail from './components/orderDetail';
+import BackToStoreButton from './components/button';
+import PaymentMethods from './components/paymentMethods';
 
 const Home = styled.div`
   height: 100%;
@@ -19,13 +21,18 @@ const Home = styled.div`
     background-color: ${color.main_background_color};
     background-image: url(${backgroundPattern});
     background-size: 70px;
-    position: absolute;
+    position: fixed;
     bottom:0;
   }
 
   .container{
-    display: flex;
     flex-basis: 70%;
+    z-index:1;
+
+    .content{
+      display:flex;
+      height:100%;
+    }
   }
 `
 
@@ -33,12 +40,13 @@ const App = () => {
   return (
     <Home>
       <div className="container">
-        <div className="sub_content">
-          <OrderDetail className="order_detail"/>
-          <button className="back_to_prev">回上一頁</button>
-        </div>
-        <main className="payment">
-          <NowProgress />
+        <NowProgress />
+        <main className="content">
+          <div className="sub_content">
+            <OrderDetail/>
+            <BackToStoreButton text="返回商店"/>
+          </div>
+          <PaymentMethods/>
         </main>
       </div>
     </Home>
