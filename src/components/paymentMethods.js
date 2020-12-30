@@ -10,7 +10,7 @@ import { color } from '../style/color';
 import ToNextButton from './button';
 
 const PaymentsPage = styled.div`
-    flex: 1 1 100%;
+    flex-basis:75%;
     background: #FFFFFF;
     box-shadow: 0 2px 13px 0 rgba(0,0,0,0.08);
     border-radius: 0 10px 0 0;

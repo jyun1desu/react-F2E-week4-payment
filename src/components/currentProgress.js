@@ -2,9 +2,14 @@ import styled from 'styled-components';
 import { color } from '../style/color';
 
 const CurrentProgress = styled.div`
-  display: inline-block;
-  margin: 40px 0;
-  position:relative;
+  width:75%;
+  margin-left:auto;
+  display:flex;
+  justify-content:center;
+  .bar{
+    display: inline-block;
+    margin: 40px 0;
+    position:relative;
 
   &::after{
     content:'';
@@ -38,20 +43,23 @@ const CurrentProgress = styled.div`
         vertical-align:middle;
       }
     }
+  }
 `
 
-const progress = ['choosePayMethod','fillForm','sucessHint']
+const progress = ['choosePayMethod', 'fillForm', 'sucessHint']
 
 const Bar = (props) => {
-    return (
-        <CurrentProgress>
-          {progress.map((step,index)=>{
-            return <div key={step} className={`each_step ${step===props.nowStep?'now_step':''}`}>
-              <span className="number">{index+1}</span>
-            </div>
-          })}
-        </CurrentProgress>
-    );
+  return (
+    <CurrentProgress>
+      <div className="bar">
+        {progress.map((step, index) => {
+          return <div key={step} className={`each_step ${step === props.nowStep ? 'now_step' : ''}`}>
+            <span className="number">{index + 1}</span>
+          </div>
+        })}
+      </div>
+    </CurrentProgress>
+  );
 }
 
 export default Bar;

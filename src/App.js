@@ -32,6 +32,10 @@ const Home = styled.div`
     .content{
       display:flex;
       height:100%;
+
+      .sub_content{
+        flex-basis: 25%;
+      }
     }
   }
 `
