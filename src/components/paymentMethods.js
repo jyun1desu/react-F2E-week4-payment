@@ -39,6 +39,15 @@ const PaymentsPage = styled.div`
         &+.each_method{
           margin-left: 20px;
         }
+        &:hover{
+          background-color:${color.selected_color};
+          .icon{
+            filter: brightness(0) invert(100%);
+          }
+          .title{
+            color:#fff;
+          }
+        }
         margin-bottom: 20px;;
         flex: 0 0 25%;
         padding: 30px;
