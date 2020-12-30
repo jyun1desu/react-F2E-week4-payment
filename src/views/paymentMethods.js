@@ -43,11 +43,11 @@ const PaymentsPage = styled.div`
           }
         }
         margin-bottom: 20px;
-        flex: 0 1 30%;
         padding: 30px;
         background:#f7f7f7;
         border-radius:5px;
         box-sizing: border-box;
+        flex: 0 1 30%;
         display:flex;
         flex-direction: column;
         justify-content: center;
@@ -86,13 +86,17 @@ const payMethods = [
     { method: 'ATM轉帳', icon: atmPayIcon }
 ]
 
+function chooseTheMethod(value){
+  console.log(value)
+}
+
 const page = () => {
     return (
         <PaymentsPage>
             <p className="title">STEP1：選擇付款方式</p>
             <div className="methods_list">
                 {payMethods.map((m, index) => {
-                    return <button className="each_method" key={`payment${index}`}>
+                    return <button className="each_method" onClick={()=>chooseTheMethod(m.method)} key={`payment${index}`}>
                         <img className="icon" src={m.icon} alt="" />
                         <span className="title">{m.method}</span>
                     </button>

@@ -17,6 +17,7 @@ body,
 button {
     cursor: pointer;
     border: none;
+    user-select: none;
 }
 
 button:focus {

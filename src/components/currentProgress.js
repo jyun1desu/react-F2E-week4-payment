@@ -6,6 +6,7 @@ const CurrentProgress = styled.div`
   margin-left:auto;
   display:flex;
   justify-content:center;
+  user-select: none;
   .bar{
     display: inline-block;
     margin: 40px 0;
