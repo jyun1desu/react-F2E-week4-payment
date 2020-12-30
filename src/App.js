@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { color } from './style/color';
 import backgroundPattern from './assets/footer-background.svg';
+//router
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 //components
 import NowProgress from './components/currentProgress';
 import OrderDetail from './components/orderDetail';
@@ -36,24 +43,41 @@ const Home = styled.div`
       .sub_content{
         flex-basis: 25%;
       }
+
+      .main_info_box{
+        flex-basis:75%;
+        box-sizing: border-box;
+        padding:50px;
+        background: #FFFFFF;
+        box-shadow: 0 2px 13px 0 rgba(0,0,0,0.08);
+        border-radius: 0 10px 0 0;
+      }
     }
   }
 `
 
 const App = () => {
   return (
-    <Home>
-      <div className="container">
-        <NowProgress nowStep='choosePayMethod' />
-        <main className="content">
-          <div className="sub_content">
-            <OrderDetail/>
-            <BackToStoreButton text="返回商店"/>
-          </div>
-          <PaymentMethods/>
-        </main>
-      </div>
-    </Home>
+    <Router>
+      <Home>
+        <div className="container">
+          <NowProgress nowStep='choosePayMethod' />
+          <main className="content">
+            <div className="sub_content">
+              <OrderDetail />
+              <BackToStoreButton text="返回商店" />
+            </div>
+            <div className="main_info_box">
+              <Switch>
+                <Route path="/">
+                  <PaymentMethods/>
+                </Route>
+              </Switch>
+            </div>
+          </main>
+        </div>
+      </Home>
+    </Router>
   );
 }
 
