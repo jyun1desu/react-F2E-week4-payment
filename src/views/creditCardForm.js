@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 //img
@@ -39,7 +40,7 @@ const FillInForm = styled.div`
       box-sizing:border-box;
       margin-top: 20px;
       padding: 5px;
-      .installment_opttions{
+      .installment_options{
         display: flex;
         .option{
           cursor:pointer;
@@ -102,6 +103,9 @@ const FillInForm = styled.div`
               &:focus{
                 outline:none;
               }
+              &.warning{
+                border:1px solid ${color.warning_color};
+              }
             }
           }
 
@@ -138,6 +142,9 @@ const FillInForm = styled.div`
             .fill_in{
               .input_blank{
                 width:80px;
+                &::placeholder{
+                  font-size:12px;
+                }
               }
 
               span{
@@ -169,6 +176,11 @@ const FillInForm = styled.div`
       display: flex;
       align-items: flex-start;
       .checkbox{
+        &.chosen{
+          border:1px solid ${color.selected_color};
+          background-color:${color.selected_color};
+        }
+        cursor:pointer;
         margin: 5px 12px 0 0;
         flex-shrink:0;
         box-sizing:border-box;
@@ -206,12 +218,6 @@ const FillInForm = styled.div`
             top:12px;
         }
       }
-
-        &.chosen{
-          border:1px solid ${color.selected_color};
-          background-color:${color.selected_color};
-        }
-
       }
 
       .content{
@@ -251,7 +257,44 @@ const FillInForm = styled.div`
 `
 
 const CreditCardForm = () => {
+  const [payment, setPayment] = useState('pay in full');
+  const [reconfirm, checkReconfirm] = useState(false);
+  const [creditCardNumberFormat, setCreditCardNumberValid] = useState([null, null, null, null]);
+  const [expiryDateFormat, setExpiryDateValid] = useState([null, null]);
+  const [securiyCodeFormat, setSecuriyCodeValid] = useState(null);
 
+  const isOnlyNumber = function (strInput) {
+    const reg = /^\d+$/
+    return reg.test(strInput)
+  }
+
+  const checkValidCardNumber = function (index, strInput) {
+    const isNumber = isOnlyNumber(strInput);
+    const rightLength = strInput.length === 4;
+    const validArray = [...creditCardNumberFormat]
+    validArray[index] = strInput.length ? (isNumber && rightLength) : true;
+    setCreditCardNumberValid(validArray)
+  }
+
+  const checkValidExpiryDate = function (index, strInput) {
+    const isNumber = isOnlyNumber(strInput);
+    const rightLength = strInput.length === 2;
+    let monthIsRight = true;
+    if (index === 0) {
+      const isMonth = Number(strInput) < 13 ? true : false;
+      monthIsRight = isMonth;
+    }
+    const validArray = [...expiryDateFormat];
+    validArray[index] = strInput.length ? (isNumber && rightLength && monthIsRight) : true;
+    setExpiryDateValid(validArray)
+  }
+
+  const checkSecurityCode = function (strInput) {
+    const isNumber = isOnlyNumber(strInput);
+    const rightLength = strInput.length === 3;
+    const isValid = strInput.length ? (isNumber && rightLength) : true;
+    setSecuriyCodeValid(isValid)
+  }
   return (
     <FillInForm>
       <div className="title_area">
@@ -260,13 +303,19 @@ const CreditCardForm = () => {
       </div>
 
       <form>
-        <div className="installment_opttions">
-          <div className="option pay_in_full">
-            <span className="option__radio chosen"></span>
+        <div className="installment_options">
+          <div
+            onClick={() => setPayment('pay in full')}
+            className="option pay_in_full">
+            <span
+              className={`option__radio ${payment === 'pay in full' ? 'chosen' : ''}`}></span>
             <span className="option__text">一次付清</span>
           </div>
-          <div className="option installment_pay">
-            <span className="option__radio"></span>
+          <div
+            onClick={() => setPayment('installment pay')}
+            className="option installment_pay">
+            <span
+              className={`option__radio ${payment === 'installment pay' ? 'chosen' : ''}`}></span>
             <span className="option__text">分期付款</span>
           </div>
         </div>
@@ -275,13 +324,25 @@ const CreditCardForm = () => {
             <p className="title">信用卡號：</p>
             <div className="fill_in">
               <div className="fill_blanks">
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidCardNumber(0, e.target.value)}
+                  className={`input_blank ${creditCardNumberFormat[0]===false ? 'warning':''}`}
+                  type="text" />
                 <span className="dash"></span>
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidCardNumber(1, e.target.value)}
+                  className={`input_blank ${creditCardNumberFormat[1]===false ? 'warning':''}`}
+                  type="text" />
                 <span className="dash"></span>
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidCardNumber(2, e.target.value)}
+                  className={`input_blank ${creditCardNumberFormat[2]===false ? 'warning':''}`}
+                  type="text" />
                 <span className="dash"></span>
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidCardNumber(3, e.target.value)}
+                  className={`input_blank ${creditCardNumberFormat[3]===false ? 'warning':''}`}
+                  type="text" />
               </div>
               <div className="card_type">
                 <img src={visaIcon} alt="visa card" className="visa" />
@@ -294,9 +355,17 @@ const CreditCardForm = () => {
             <p className="title">有效年月：</p>
             <div className="fill_in">
               <div className="fill_blanks">
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidExpiryDate(0, e.target.value)}
+                  className={`input_blank ${expiryDateFormat[0] === false ? 'warning' : ''}`}
+                  placeholder="月，如：04"
+                  type="text" />
                 <span className="slash">/</span>
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkValidExpiryDate(1, e.target.value)}
+                  className={`input_blank ${expiryDateFormat[1] === false ? 'warning' : ''}`}
+                  placeholder="年，如：21"
+                  type="text" />
               </div>
               <span>年</span>
             </div>
@@ -305,7 +374,10 @@ const CreditCardForm = () => {
             <p className="title">背面末三碼：</p>
             <div className="fill_in">
               <div className="fill_blanks">
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkSecurityCode(e.target.value)}
+                  className={`input_blank ${securiyCodeFormat === false ? 'warning' : ''}`}
+                  type="text" />
               </div>
               <div className="valid_check">
                 <img src={securityCodeIcon} alt="" />
@@ -324,8 +396,10 @@ const CreditCardForm = () => {
           </div>
         </div>
         <div className="reconfirm_check">
-          <span className="checkbox">
-            <span className="checkmark">
+          <span className={`checkbox ${reconfirm ? 'chosen' : ''}`}>
+            <span
+              onClick={() => checkReconfirm(!reconfirm)}
+              className="checkmark">
               <div className="checkmark_stem"></div>
               <div className="checkmark_kick"></div>
             </span>
