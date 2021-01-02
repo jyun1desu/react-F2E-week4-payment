@@ -13,7 +13,7 @@ import OrderDetail from './components/orderDetail';
 import BackToStoreButton from './components/button';
 //views
 import PaymentMethods from './views/paymentMethods';
-// import InputForm from './views/informationInput';
+import CreditCardForm from './views/creditCardForm';
 // import SucessPage from './views/sucessPage';
 
 
@@ -36,7 +36,7 @@ const Home = styled.div`
   }
 
   .container{
-    flex-basis: 80%;
+    flex-basis: 75%;
     z-index:1;
 
     .content{
@@ -75,10 +75,10 @@ const App = () => {
                 <Route exact path="/">
                   <PaymentMethods/>
                 </Route>
-                {/* <Route exact path="/pay_and_ship_form">
-                  <InputForm/>
+                <Route exact path="/credit_card_form">
+                  <CreditCardForm/>
                 </Route>
-                <Route exact path="/sucess">
+                {/* <Route exact path="/sucess">
                   <SucessPage/>
                 </Route> */}
               </Switch>

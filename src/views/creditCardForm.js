@@ -1,0 +1,352 @@
+import styled from 'styled-components';
+import { color } from '../style/color';
+//img
+import visaIcon from '../assets/visa.svg';
+import jcbIcon from '../assets/jcb.svg';
+import masterCardIcon from '../assets/mastercard.svg';
+import securityCodeIcon from '../assets/back-three.svg';
+//router
+import { Link } from 'react-router-dom';
+
+const FillInForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+
+    .title_area{
+      align-self: center;
+      text-align: center;
+      .title{
+      margin: 0 auto;
+      font-size: 20px;
+      letter-spacing:2px;
+      font-weight:500;
+      padding: 0 10px 5px;
+      background: linear-gradient(to top, ${color.highlight_color} 50%, transparent 50%);
+      }
+
+      .method{
+        font-size: 12px;
+        letter-spacing: 1.3px;
+        font-weight: 500;
+        color: #000000;
+      }
+    }
+
+    form{
+      font-size:14px;
+      letter-spacing:1.5px;
+      box-sizing:border-box;
+      margin-top: 20px;
+      padding: 5px;
+      .installment_opttions{
+        display: flex;
+        .option{
+          cursor:pointer;
+          &+.option{
+            margin-left:30px;
+          }
+          &__radio{
+            display: inline-block;
+            width:16px;
+            height:16px;
+            border:1px solid ${color.input_hint_color};
+            border-radius: 50%;
+            vertical-align:middle;
+            margin-right:10px;
+            position:relative;
+
+            &.chosen{
+              &::after{
+                content:'';
+                display:block;
+                width:11px;
+                height:11px;
+                border-radius:50%;
+                background-color: ${color.selected_color};
+                position:absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+              }
+            }
+
+          }
+          &__text{
+            vertical-align:middle;
+          }
+        }
+      }
+      
+
+      .info{
+        margin-top:20px;
+        .title{
+          margin-bottom: 10px;
+        }
+        .column{
+          margin-bottom: 15px;
+          .fill_in{
+            display:flex;
+            align-items:center;
+            .input_blank{
+              border:1px solid ${color.input_hint_color};
+              border-radius: 5px;
+              padding: 7px 12px;
+              margin-right: 10px;
+              color:#000;
+              font-size:15px;
+              letter-spacing:1.5px;
+              font-weight:300;
+              text-align:center;
+              &:focus{
+                outline:none;
+              }
+            }
+          }
+
+          &.card_number{
+            .fill_in{
+              .fill_blanks{
+                display:flex;
+                align-items:center;
+                .input_blank{
+                  width:50px;
+                }
+                .dash{
+                  display:inline-block;
+                  width:12px;
+                  border-top:1px solid #000;
+                  margin-right: 10px;
+                  vertical-align:middle;
+                }
+              }
+              .card_type{
+                display:flex;
+                margin-left:15px;
+                img{
+                  width:45px;
+                  &+img{
+                    margin-left:5px;
+                  }
+                }
+              }
+            }
+          }
+
+          &.expiry_date,&.security_code{
+            .fill_in{
+              .input_blank{
+                width:80px;
+              }
+
+              span{
+                margin: 0 15px;
+              }
+            }
+            .valid_check{
+              width:45px;
+              img{
+                width:100%;
+                vertical-align:middle;
+              }
+            }
+          }
+
+          &.buyer_email{
+            .fill_blanks{
+              flex:100%;
+              .input_blank{
+                width:40%;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .reconfirm_check{
+      display: flex;
+      align-items: flex-start;
+      .checkbox{
+        margin: 5px 12px 0 0;
+        flex-shrink:0;
+        box-sizing:border-box;
+        width: 15px;
+        height: 15px;
+        border-radius: 5px;
+        border: 1px solid ${color.input_hint_color};
+        position:relative;
+
+        .checkmark {
+          display:inline-block;
+          position:absolute;
+          top:50%;
+          left:50%;
+          width: 22px;
+          height:22px;
+          transform-origin:top left;
+          transform: rotate(45deg) translate(-50%,-50%);
+
+          .checkmark_stem {
+            position: absolute;
+            width:2px;
+            height:8px;
+            background-color:#fff;
+            left:11px;
+            top:6px;
+        }
+        
+        .checkmark_kick {
+            position: absolute;
+            width:3px;
+            height:2px;
+            background-color:#fff;
+            left:8px;
+            top:12px;
+        }
+      }
+
+        &.chosen{
+          border:1px solid ${color.selected_color};
+          background-color:${color.selected_color};
+        }
+
+      }
+
+      .content{
+        line-height: 25px;
+        letter-spacing: 2.5px;
+        display:flex;
+        flex-direction:column;
+
+        .provision_detail{
+          margin-top:10px;
+          color: ${color.input_hint_color};
+        }
+      }
+    }
+
+    .button_area{
+      display: flex;
+      justify-content:space-between;
+      .button{
+        font-size:14px;
+        padding:10px 15px;
+        letter-spacing: 1.5px;
+        border-radius: 5px;
+        margin-top:20px;
+        text-decoration: none;
+
+        &.to_previous{
+          color:${color.sub_font_color};
+          background-color:${color.to_previous_button_color};
+        }
+        &.to_next{
+          color: #fff;
+          background-color:${color.selected_color};
+        }
+      }
+    }
+`
+
+const CreditCardForm = () => {
+
+  return (
+    <FillInForm>
+      <div className="title_area">
+        <p className="title">STEP2：填寫付款資訊</p>
+        <span className="method">信用卡/金融卡</span>
+      </div>
+
+      <form>
+        <div className="installment_opttions">
+          <div className="option pay_in_full">
+            <span className="option__radio chosen"></span>
+            <span className="option__text">一次付清</span>
+          </div>
+          <div className="option installment_pay">
+            <span className="option__radio"></span>
+            <span className="option__text">分期付款</span>
+          </div>
+        </div>
+        <div className="info card_info">
+          <div className="column card_number">
+            <p className="title">信用卡號：</p>
+            <div className="fill_in">
+              <div className="fill_blanks">
+                <input className="input_blank" type="text" />
+                <span className="dash"></span>
+                <input className="input_blank" type="text" />
+                <span className="dash"></span>
+                <input className="input_blank" type="text" />
+                <span className="dash"></span>
+                <input className="input_blank" type="text" />
+              </div>
+              <div className="card_type">
+                <img src={visaIcon} alt="visa card" className="visa" />
+                <img src={jcbIcon} alt="visa card" className="jcb" />
+                <img src={masterCardIcon} alt="visa card" className="master_card" />
+              </div>
+            </div>
+          </div>
+          <div className="column expiry_date">
+            <p className="title">有效年月：</p>
+            <div className="fill_in">
+              <div className="fill_blanks">
+                <input className="input_blank" type="text" />
+                <span className="slash">/</span>
+                <input className="input_blank" type="text" />
+              </div>
+              <span>年</span>
+            </div>
+          </div>
+          <div className="column security_code">
+            <p className="title">背面末三碼：</p>
+            <div className="fill_in">
+              <div className="fill_blanks">
+                <input className="input_blank" type="text" />
+              </div>
+              <div className="valid_check">
+                <img src={securityCodeIcon} alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="info buyer_info">
+          <div className="column buyer_email">
+            <p className="title">填寫付款人信箱：</p>
+            <div className="fill_in">
+              <div className="fill_blanks">
+                <input className="input_blank" type="text" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="reconfirm_check">
+          <span className="checkbox">
+            <span className="checkmark">
+              <div className="checkmark_stem"></div>
+              <div className="checkmark_kick"></div>
+            </span>
+          </span>
+          <p className="content">
+            <span>請再次確認「訂單資訊」與「付款資訊」，付款完成後將發送通知信至您的E-mail信箱</span>
+            <a href="http://google.com" className="provision_detail">第三方支付金流平台服務條款</a>
+          </p>
+        </div>
+        <div className="button_area">
+          <Link
+            className="button to_previous"
+            to="/">回上一頁</Link>
+          <Link
+            className="button to_next"
+            to="/">確認付款</Link>
+        </div>
+      </form>
+
+    </FillInForm>
+  );
+}
+
+export default CreditCardForm;

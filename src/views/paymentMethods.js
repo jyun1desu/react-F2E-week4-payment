@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { color } from '../style/color';
+//
 import creditCardIcon from '../assets/credit-card.svg';
 import unionPayIcon from '../assets/unionpay.svg';
 import cvPayIcon from '../assets/shop.svg';
 import webATMPayIcon from '../assets/web-atm.svg';
 import atmPayIcon from '../assets/atm.svg';
-import { color } from '../style/color';
 //router
 import { Link } from 'react-router-dom';
 
