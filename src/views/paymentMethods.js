@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import creditCardIcon from '../assets/credit-card.svg';
 import unionPayIcon from '../assets/unionpay.svg';
@@ -6,7 +7,7 @@ import webATMPayIcon from '../assets/web-atm.svg';
 import atmPayIcon from '../assets/atm.svg';
 import { color } from '../style/color';
 //router
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PaymentsPage = styled.div`
     display: flex;
@@ -33,7 +34,7 @@ const PaymentsPage = styled.div`
         &+.each_method{
           margin-left: 20px;
         }
-        &:focus,&:hover{
+        &.now_chosen_method{
           background-color:${color.selected_color};
           .icon{
             filter: brightness(0) invert(100%);
@@ -75,36 +76,52 @@ const PaymentsPage = styled.div`
       background-color:${color.selected_color};
 
       text-decoration: none;
+
+      &.disable{
+        cursor: default;
+        background-color:#AFAFAF;
+      }
     }
 `
 
 const payMethods = [
-    { method: '信用卡/金融卡', icon: creditCardIcon },
-    { method: '銀聯卡', icon: unionPayIcon },
-    { method: '超商付款', icon: cvPayIcon },
-    { method: 'Web ATM', icon: webATMPayIcon },
-    { method: 'ATM轉帳', icon: atmPayIcon }
+  { method: '信用卡/金融卡', icon: creditCardIcon,routerTo:'/credit_card_form'},
+  { method: '銀聯卡', icon: unionPayIcon,routerTo:'/credit_card_form'},
+  { method: '超商付款', icon: cvPayIcon,routerTo:'/cvstore_form'},
+  { method: 'Web ATM', icon: webATMPayIcon,routerTo:'/atm_form' },
+  { method: 'ATM轉帳', icon: atmPayIcon,routerTo:'/atm_form' }
 ]
 
-function chooseTheMethod(value){
-  console.log(value)
+const Page = () => {
+  const [method, setMethod] = useState('');
+
+  const chooseTheMethod = (e,value)=>{
+      e.stopPropagation();
+      if(value===method){
+        setMethod('')
+      }else{
+        setMethod(value)
+      }
+    }
+
+  return (
+    <PaymentsPage>
+      <p className="title">STEP1：選擇付款方式</p>
+      <div className="methods_list">
+        {payMethods.map((m, index) => {
+          return <button 
+          className={`each_method ${m.method===method.method?'now_chosen_method':''}`}
+          onClick={(e) => chooseTheMethod(e,m)} key={`payment${index}`}>
+            <img className="icon" src={m.icon} alt="" />
+            <span className="title">{m.method}</span>
+          </button>
+        })}
+      </div>
+      <Link
+      className={`to_next_page ${method?'':'disable'}`}
+      to={method.routerTo||'/'}>下一頁</Link>
+    </PaymentsPage>
+  );
 }
 
-const page = () => {
-    return (
-        <PaymentsPage>
-            <p className="title">STEP1：選擇付款方式</p>
-            <div className="methods_list">
-                {payMethods.map((m, index) => {
-                    return <button className="each_method" onClick={()=>chooseTheMethod(m.method)} key={`payment${index}`}>
-                        <img className="icon" src={m.icon} alt="" />
-                        <span className="title">{m.method}</span>
-                    </button>
-                })}
-            </div>
-            <Link className="to_next_page" to="/pay_and_ship_form">下一頁</Link>
-        </PaymentsPage>
-    );
-}
-
-export default page;
+export default Page;
