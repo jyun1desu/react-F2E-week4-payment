@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 //img
@@ -130,6 +130,9 @@ const FillInForm = styled.div`
                 margin-left:15px;
                 img{
                   width:45px;
+                  &.isCard{
+                    filter: invert(55%) sepia(98%) saturate(293%) hue-rotate(113deg) brightness(93%) contrast(86%);
+                  }
                   &+img{
                     margin-left:5px;
                   }
@@ -260,21 +263,32 @@ const CreditCardForm = () => {
   const [payment, setPayment] = useState('pay in full');
   const [reconfirm, checkReconfirm] = useState(false);
   const [creditCardNumberFormat, setCreditCardNumberValid] = useState([null, null, null, null]);
+  const [creditCardNumber, setCreditCardNumber] = useState(['', '']);
+  const [cardOrganization, setCardOrganization] = useState('none');
   const [expiryDateFormat, setExpiryDateValid] = useState([null, null]);
   const [securiyCodeFormat, setSecuriyCodeValid] = useState(null);
   const [emailFormat, setEmailValid] = useState(null);
 
+  useEffect(() => {
+    identifyCardOrganization();
+  });
+
   const isOnlyNumber = function (strInput) {
     const reg = /^\d+$/
     return reg.test(strInput)
-  }
-
+  };
   const checkValidCardNumber = function (index, strInput) {
     const isNumber = isOnlyNumber(strInput);
     const rightLength = strInput.length === 4;
     const validArray = [...creditCardNumberFormat]
     validArray[index] = strInput.length ? (isNumber && rightLength) : true;
     setCreditCardNumberValid(validArray)
+    if ((isNumber && rightLength) && (index < 2)) {
+      const nowInput = [...creditCardNumber];
+      nowInput[index] = strInput;
+      setCreditCardNumber(nowInput)
+      identifyCardOrganization();
+    }
   };
   const checkValidExpiryDate = function (index, strInput) {
     const isNumber = isOnlyNumber(strInput);
@@ -298,7 +312,27 @@ const CreditCardForm = () => {
     const reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
     const isVaild = reg.test(strInput);
     setEmailValid(isVaild)
-  }
+  };
+  const identifyCardOrganization = function () {
+    if (creditCardNumberFormat[0] && creditCardNumberFormat[1]) {
+      const number = Number(creditCardNumber[0]) + Number(creditCardNumber[1])
+      switch (number % 3) {
+        case 0:
+          setCardOrganization('visa');
+          break;
+        case 1:
+          setCardOrganization('jcb');
+          break;
+        case 2:
+          setCardOrganization('master card');
+          break;
+        default:
+          setCardOrganization('');
+      }
+    } else {
+      setCardOrganization('');
+    }
+  };
 
 
   return (
@@ -351,9 +385,15 @@ const CreditCardForm = () => {
                   type="text" />
               </div>
               <div className="card_type">
-                <img src={visaIcon} alt="visa card" className="visa" />
-                <img src={jcbIcon} alt="visa card" className="jcb" />
-                <img src={masterCardIcon} alt="visa card" className="master_card" />
+                <img
+                  className={`visa ${cardOrganization === 'visa' ? 'isCard' : ''}`}
+                  src={visaIcon} alt="visa card" />
+                <img
+                  className={`jcb ${cardOrganization === 'jcb' ? 'isCard' : ''}`}
+                  src={jcbIcon} alt="jcb card" />
+                <img
+                  className={`master_card ${cardOrganization === 'master card' ? 'isCard' : ''}`}
+                  src={masterCardIcon} alt="master card" />
               </div>
             </div>
           </div>
