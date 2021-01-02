@@ -262,6 +262,7 @@ const CreditCardForm = () => {
   const [creditCardNumberFormat, setCreditCardNumberValid] = useState([null, null, null, null]);
   const [expiryDateFormat, setExpiryDateValid] = useState([null, null]);
   const [securiyCodeFormat, setSecuriyCodeValid] = useState(null);
+  const [emailFormat, setEmailValid] = useState(null);
 
   const isOnlyNumber = function (strInput) {
     const reg = /^\d+$/
@@ -274,8 +275,7 @@ const CreditCardForm = () => {
     const validArray = [...creditCardNumberFormat]
     validArray[index] = strInput.length ? (isNumber && rightLength) : true;
     setCreditCardNumberValid(validArray)
-  }
-
+  };
   const checkValidExpiryDate = function (index, strInput) {
     const isNumber = isOnlyNumber(strInput);
     const rightLength = strInput.length === 2;
@@ -287,14 +287,20 @@ const CreditCardForm = () => {
     const validArray = [...expiryDateFormat];
     validArray[index] = strInput.length ? (isNumber && rightLength && monthIsRight) : true;
     setExpiryDateValid(validArray)
-  }
-
+  };
   const checkSecurityCode = function (strInput) {
     const isNumber = isOnlyNumber(strInput);
     const rightLength = strInput.length === 3;
     const isValid = strInput.length ? (isNumber && rightLength) : true;
     setSecuriyCodeValid(isValid)
+  };
+  const checkEmail = function (strInput) {
+    const reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+    const isVaild = reg.test(strInput);
+    setEmailValid(isVaild)
   }
+
+
   return (
     <FillInForm>
       <div className="title_area">
@@ -326,22 +332,22 @@ const CreditCardForm = () => {
               <div className="fill_blanks">
                 <input
                   onChange={(e) => checkValidCardNumber(0, e.target.value)}
-                  className={`input_blank ${creditCardNumberFormat[0]===false ? 'warning':''}`}
+                  className={`input_blank ${creditCardNumberFormat[0] === false ? 'warning' : ''}`}
                   type="text" />
                 <span className="dash"></span>
                 <input
                   onChange={(e) => checkValidCardNumber(1, e.target.value)}
-                  className={`input_blank ${creditCardNumberFormat[1]===false ? 'warning':''}`}
+                  className={`input_blank ${creditCardNumberFormat[1] === false ? 'warning' : ''}`}
                   type="text" />
                 <span className="dash"></span>
                 <input
                   onChange={(e) => checkValidCardNumber(2, e.target.value)}
-                  className={`input_blank ${creditCardNumberFormat[2]===false ? 'warning':''}`}
+                  className={`input_blank ${creditCardNumberFormat[2] === false ? 'warning' : ''}`}
                   type="text" />
                 <span className="dash"></span>
                 <input
                   onChange={(e) => checkValidCardNumber(3, e.target.value)}
-                  className={`input_blank ${creditCardNumberFormat[3]===false ? 'warning':''}`}
+                  className={`input_blank ${creditCardNumberFormat[3] === false ? 'warning' : ''}`}
                   type="text" />
               </div>
               <div className="card_type">
@@ -390,7 +396,10 @@ const CreditCardForm = () => {
             <p className="title">填寫付款人信箱：</p>
             <div className="fill_in">
               <div className="fill_blanks">
-                <input className="input_blank" type="text" />
+                <input
+                  onChange={(e) => checkEmail(e.target.value)}
+                  className={`input_blank ${emailFormat === false ? 'warning' : ''}`}
+                  type="text" />
               </div>
             </div>
           </div>
