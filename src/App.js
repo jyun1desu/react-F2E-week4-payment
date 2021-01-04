@@ -50,6 +50,12 @@ const Home = styled.div`
 
       .sub_content{
         flex-basis: 25%;
+        transition:all 0.5s;
+        z-index:-10;
+
+        &.hide{
+          transform:translateX(95%);
+        }
       }
 
       .main_info_box{
@@ -77,9 +83,9 @@ const App = () =>{
         <div className="container">
           <NowProgress nowStep={nowProgress} />
           <main className="content">
-            <div className="sub_content">
+            <div className={`sub_content ${nowProgress==='successHint'?'hide':''}`}>
               <OrderDetail />
-              <BackToStoreButton text="返回商店" />
+              <BackToStoreButton nowStep={nowProgress} text="返回商店" />
             </div>
             <div className="main_info_box">
               <Switch>

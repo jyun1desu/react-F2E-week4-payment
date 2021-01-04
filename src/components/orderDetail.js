@@ -20,7 +20,7 @@ const Block = styled.div`
     }
 `
 
-const OrderDetail = () => {
+const OrderDetail = ({order_blcok}) => {
     return (
         <Block>
             <p className="title">訂單資訊</p>

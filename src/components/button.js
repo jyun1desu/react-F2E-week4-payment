@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
 
-const BackToPrevious = styled.button`
+const button = (props) => {
+  const BackToPrevious = styled.button`
+  display:${props.nowStep==='successHint'?'none':'inline-block'};
   color: #fff;
   font-size:14px;
   padding:10px 15px;
@@ -11,7 +13,6 @@ const BackToPrevious = styled.button`
   margin-top:20px;
 `
 
-const button = (props) => {
   return (
     <BackToPrevious>
       {props.text}
