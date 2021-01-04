@@ -1,4 +1,4 @@
-import { useState,useMemo } from 'react';
+import { useState, useMemo ,useEffect} from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 //router
@@ -63,7 +63,7 @@ const FillInForm = styled.div`
           }
 
           &.email{
-            width:70%;
+            width:50%;
           }
         }
       }
@@ -208,17 +208,21 @@ const Dropdown = styled.div`
 
 const store = ['全家', '7-11', '萊爾富', 'OK']
 
-const CVStoreForm = () => {
+const CVStoreForm = (props) => {
   const [showList, toggleShowList] = useState(false);
   const [selectedStore, setStore] = useState(null);
   const [emailFormat, setEmailValid] = useState(null);
   const [reconfirm, checkReconfirm] = useState(false);
 
+  useEffect(() => {
+    props.updateProgress('fillForm');
+  });
+
   const checkInputAllFilled = useMemo(() => {
-    return selectedStore&&reconfirm&&emailFormat
+    return selectedStore && reconfirm && emailFormat
   }, [selectedStore, reconfirm, emailFormat]);
 
-  function chooseAStore(store){
+  function chooseAStore(store) {
     setStore(store);
     toggleShowList(false);
   }
@@ -242,9 +246,9 @@ const CVStoreForm = () => {
             <Dropdown>
               <div
                 onClick={() => toggleShowList(!showList)}
-                className={`input_blank dropdown_blank ${showList ? 'show_list' : ''} ${selectedStore?'have_store':''}`}>{selectedStore?selectedStore:'選擇超商'}</div>
+                className={`input_blank dropdown_blank ${showList ? 'show_list' : ''} ${selectedStore ? 'have_store' : ''}`}>{selectedStore ? selectedStore : '選擇超商'}</div>
               <ul style={{ 'display': showList ? 'block' : 'none' }} className="dropdown_options">
-                {store.map((store,index) => {
+                {store.map((store, index) => {
                   return (<li key={`store${index}`} onClick={() => { chooseAStore(store) }}
                     className="option">{store}</li>)
                 })}
@@ -253,15 +257,15 @@ const CVStoreForm = () => {
           </div>
           <div className="cloumn info__buyer_email">
             <div className="title">填寫付款人信箱：</div>
-            <input 
-            onChange={(e) => checkEmail(e.target.value)}
-            className={`input_blank email ${emailFormat === false ? 'warning' : ''}`} type="text" />
+            <input
+              onChange={(e) => checkEmail(e.target.value)}
+              className={`input_blank email ${emailFormat === false ? 'warning' : ''}`} type="text" />
           </div>
         </div>
         <div className="reconfirm_check">
           <span className={`checkbox ${reconfirm ? 'chosen' : ''}`}>
             <span
-            onClick={() => checkReconfirm(!reconfirm)}
+              onClick={() => checkReconfirm(!reconfirm)}
               className="checkmark">
               <div className="checkmark_stem"></div>
               <div className="checkmark_kick"></div>
@@ -280,9 +284,9 @@ const CVStoreForm = () => {
             <Link
               className="button to_next"
               to={{
-                pathname:"/cv_success",
-                state:{
-                  store:selectedStore
+                pathname: "/cv_success",
+                state: {
+                  store: selectedStore
                 }
               }}>確認付款</Link>
             : <button

@@ -3,6 +3,7 @@ import { color } from '../style/color';
 import { Link } from 'react-router-dom';
 //image
 import successImage from '../assets/finish.svg'
+import { useEffect } from 'react';
 
 const Success = styled.div`
 display: flex;
@@ -62,7 +63,10 @@ align-items:center;
 `
 
 
-const SuccessPage = () => {
+const SuccessPage = (props) => {
+  useEffect(() => {
+    props.updateProgress('successHint');
+  });
   return (
     <Success>
       <div className="title_area">

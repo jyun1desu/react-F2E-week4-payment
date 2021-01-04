@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { color } from '../style/color';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
+import { useEffect } from 'react';
 
 const Success = styled.div`
 display: flex;
@@ -62,8 +63,11 @@ const paymentDetail = [
   { title: '付款期限', content: '2019-08-08 23:59:59' }
 ]
 
-const CVSuccessPage = () => {
+const CVSuccessPage = (props) => {
   const store = useLocation().state.store;
+  useEffect(() => {
+    props.updateProgress('successHint');
+  });
   return (
     <Success>
       <div className="title_area">

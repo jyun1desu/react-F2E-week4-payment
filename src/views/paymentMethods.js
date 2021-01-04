@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 //
@@ -86,41 +86,43 @@ const PaymentsPage = styled.div`
 `
 
 const payMethods = [
-  { method: '信用卡/金融卡', icon: creditCardIcon,routerTo:'/credit_card_form'},
-  { method: '銀聯卡', icon: unionPayIcon,routerTo:'/credit_card_form'},
-  { method: '超商付款', icon: cvPayIcon,routerTo:'/cvstore_form'},
-  { method: 'Web ATM', icon: webATMPayIcon,routerTo:'/web_atm_form' },
-  { method: 'ATM轉帳', icon: atmPayIcon,routerTo:'/web_atm_form' }
+  { method: '信用卡/金融卡', icon: creditCardIcon, routerTo: '/credit_card_form' },
+  { method: '銀聯卡', icon: unionPayIcon, routerTo: '/credit_card_form' },
+  { method: '超商付款', icon: cvPayIcon, routerTo: '/cvstore_form' },
+  { method: 'Web ATM', icon: webATMPayIcon, routerTo: '/web_atm_form' },
+  { method: 'ATM轉帳', icon: atmPayIcon, routerTo: '/web_atm_form' }
 ]
 
-const Page = () => {
+const Page = (props) => {
   const [method, setMethod] = useState('');
 
-  const chooseTheMethod = (e,value)=>{
-      e.stopPropagation();
-      if(value===method){
-        setMethod('')
-      }else{
-        setMethod(value)
-      }
+  const chooseTheMethod = (e, value) => {
+    e.stopPropagation();
+    if (value === method) {
+      setMethod('')
+    } else {
+      setMethod(value)
     }
-
+  }
+  useEffect(() => {
+    props.updateProgress('choosePayMethod');
+  });
   return (
     <PaymentsPage>
       <p className="title">STEP1：選擇付款方式</p>
       <div className="methods_list">
         {payMethods.map((m, index) => {
-          return <button 
-          className={`each_method ${m.method===method.method?'now_chosen_method':''}`}
-          onClick={(e) => chooseTheMethod(e,m)} key={`payment${index}`}>
+          return <button
+            className={`each_method ${m.method === method.method ? 'now_chosen_method' : ''}`}
+            onClick={(e) => chooseTheMethod(e, m)} key={`payment${index}`}>
             <img className="icon" src={m.icon} alt="" />
             <span className="title">{m.method}</span>
           </button>
         })}
       </div>
       <Link
-      className={`to_next_page ${method?'':'disable'}`}
-      to={method.routerTo||'/'}>下一頁</Link>
+        className={`to_next_page ${method ? '' : 'disable'}`}
+        to={method.routerTo || '/'}>下一頁</Link>
     </PaymentsPage>
   );
 }

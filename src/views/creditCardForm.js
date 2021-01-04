@@ -266,7 +266,7 @@ const FillInForm = styled.div`
     }
 `
 
-const CreditCardForm = () => {
+const CreditCardForm = (props) => {
   const [payment, setPayment] = useState('pay in full');
   const [reconfirm, checkReconfirm] = useState(false);
   const [creditCardNumberFormat, setCreditCardNumberValid] = useState([null, null, null, null]);
@@ -278,6 +278,10 @@ const CreditCardForm = () => {
 
   useEffect(() => {
     identifyCardOrganization();
+  });
+
+  useEffect(() => {
+    props.updateProgress('fillForm');
   });
 
   const checkInputAllFilled = useMemo(() => {

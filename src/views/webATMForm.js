@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 import { Link } from 'react-router-dom';
@@ -206,11 +206,15 @@ const Dropdown = styled.div`
 
 const bank = ['台新銀行', '國泰世華銀行', '玉山銀行']
 
-const ATMForm = () => {
+const ATMForm = (props) => {
   const [showList, toggleShowList] = useState(false);
   const [selectedBank, setBank] = useState(null);
   const [emailFormat, setEmailValid] = useState(null);
   const [reconfirm, checkReconfirm] = useState(false);
+
+  useEffect(() => {
+    props.updateProgress('fillForm');
+  });
 
   const checkInputAllFilled = useMemo(() => {
     return selectedBank && reconfirm && emailFormat
@@ -261,7 +265,7 @@ const ATMForm = () => {
         <div className="reconfirm_check">
           <span className={`checkbox ${reconfirm ? 'chosen' : ''}`}>
             <span
-            onClick={() => checkReconfirm(!reconfirm)}
+              onClick={() => checkReconfirm(!reconfirm)}
               className="checkmark">
               <div className="checkmark_stem"></div>
               <div className="checkmark_kick"></div>

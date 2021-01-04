@@ -1,3 +1,5 @@
+import { useState,useEffect } from 'react';
+//style
 import styled from 'styled-components';
 import { color } from './style/color';
 import backgroundPattern from './assets/footer-background.svg';
@@ -63,11 +65,17 @@ const Home = styled.div`
 `
 
 const App = () =>{
+  const [nowProgress,setNowProgress] = useState('choosePayMethod')
+
+  const updateProgress = (status)=>{
+    setNowProgress(status)
+  }
+
   return (
     <Router>
       <Home>
         <div className="container">
-          <NowProgress nowStep='choosePayMethod' />
+          <NowProgress nowStep={nowProgress} />
           <main className="content">
             <div className="sub_content">
               <OrderDetail />
@@ -76,22 +84,22 @@ const App = () =>{
             <div className="main_info_box">
               <Switch>
                 <Route exact path="/">
-                  <PaymentMethods/>
+                  <PaymentMethods updateProgress={updateProgress}/>
                 </Route>
                 <Route exact path="/credit_card_form">
-                  <CreditCardForm/>
+                  <CreditCardForm updateProgress={updateProgress}/>
                 </Route>
                 <Route exact path="/cvstore_form">
-                  <CVStore/>
+                  <CVStore updateProgress={updateProgress}/>
                 </Route>
                 <Route exact path="/web_atm_form">
-                  <WebATMForm/>
+                  <WebATMForm updateProgress={updateProgress}/>
                 </Route>
                 <Route exact path="/success">
-                  <SuccessPage/>
+                  <SuccessPage updateProgress={updateProgress}/>
                 </Route>
                 <Route exact path="/cv_success">
-                  <CVSuccessPage/>
+                  <CVSuccessPage updateProgress={updateProgress}/>
                 </Route>
               </Switch>
             </div>
