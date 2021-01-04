@@ -1,9 +1,7 @@
-import { useState,useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
-//router
 import { Link } from 'react-router-dom';
-
 
 const FillInForm = styled.div`
   display: flex;
@@ -206,56 +204,58 @@ const Dropdown = styled.div`
     }
 `
 
-const store = ['全家', '7-11', '萊爾富', 'OK']
+const bank = ['台新銀行', '國泰世華銀行', '玉山銀行']
 
-const CVStoreForm = () => {
+const ATMForm = () => {
   const [showList, toggleShowList] = useState(false);
-  const [selectedStore, setStore] = useState(null);
+  const [selectedBank, setBank] = useState(null);
   const [emailFormat, setEmailValid] = useState(null);
   const [reconfirm, checkReconfirm] = useState(false);
 
   const checkInputAllFilled = useMemo(() => {
-    return selectedStore&&reconfirm&&emailFormat
-  }, [selectedStore, reconfirm, emailFormat]);
+    return selectedBank && reconfirm && emailFormat
+  }, [selectedBank, reconfirm, emailFormat]);
 
-  function chooseAStore(store){
-    setStore(store);
+  function chooseAStore(store) {
+    setBank(store);
     toggleShowList(false);
-  }
+  };
+
   function checkEmail(strInput) {
     const reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
     const isVaild = reg.test(strInput);
     setEmailValid(isVaild)
   };
 
+
   return (
     <FillInForm>
       <div className="title_area">
         <p className="title">STEP2：填寫付款資訊</p>
-        <span className="method">超商取貨</span>
+        <span className="method">Web ATM</span>
       </div>
 
       <form>
         <div className="info">
-          <div className="cloumn info__deliver">
-            <div className="title">付款超商：</div>
+          <div className="cloumn info__bank">
+            <div className="title">付款銀行：</div>
             <Dropdown>
               <div
                 onClick={() => toggleShowList(!showList)}
-                className={`input_blank dropdown_blank ${showList ? 'show_list' : ''} ${selectedStore?'have_store':''}`}>{selectedStore?selectedStore:'選擇超商'}</div>
+                className={`input_blank dropdown_blank ${showList ? 'show_list' : ''} ${selectedBank ? 'have_store' : ''}`}>{selectedBank ? selectedBank : '選擇銀行'}</div>
               <ul style={{ 'display': showList ? 'block' : 'none' }} className="dropdown_options">
-                {store.map((store,index) => {
-                  return (<li key={`store${index}`} onClick={() => { chooseAStore(store) }}
-                    className="option">{store}</li>)
+                {bank.map((bank, index) => {
+                  return (<li key={`bank${index}`} onClick={() => { chooseAStore(bank) }}
+                    className="option">{bank}</li>)
                 })}
               </ul>
             </Dropdown>
           </div>
           <div className="cloumn info__buyer_email">
             <div className="title">填寫付款人信箱：</div>
-            <input 
-            onChange={(e) => checkEmail(e.target.value)}
-            className={`input_blank email ${emailFormat === false ? 'warning' : ''}`} type="text" />
+            <input
+              onChange={(e) => checkEmail(e.target.value)}
+              className={`input_blank email ${emailFormat === false ? 'warning' : ''}`} type="text" />
           </div>
         </div>
         <div className="reconfirm_check">
@@ -279,20 +279,14 @@ const CVStoreForm = () => {
           {checkInputAllFilled ?
             <Link
               className="button to_next"
-              to={{
-                pathname:"/cv_success",
-                state:{
-                  store:selectedStore
-                }
-              }}>確認付款</Link>
+              to="/success">確認付款</Link>
             : <button
               className="button disabled"
               disabled>確認付款</button>}
         </div>
       </form>
-
     </FillInForm>
   );
 }
 
-export default CVStoreForm;
+export default ATMForm;

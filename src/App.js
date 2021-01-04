@@ -14,6 +14,7 @@ import BackToStoreButton from './components/button';
 //views
 import PaymentMethods from './views/paymentMethods';
 import CreditCardForm from './views/creditCardForm';
+import WebATMForm from './views/webATMForm';
 import CVStore from './views/chooseStore';
 import SuccessPage from './views/successPage';
 import CVSuccessPage from './views/cvSuccessPage';
@@ -61,7 +62,7 @@ const Home = styled.div`
   }
 `
 
-const App = () => {
+const App = () =>{
   return (
     <Router>
       <Home>
@@ -82,6 +83,9 @@ const App = () => {
                 </Route>
                 <Route exact path="/cvstore_form">
                   <CVStore/>
+                </Route>
+                <Route exact path="/web_atm_form">
+                  <WebATMForm/>
                 </Route>
                 <Route exact path="/success">
                   <SuccessPage/>

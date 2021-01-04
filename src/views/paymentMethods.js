@@ -89,8 +89,8 @@ const payMethods = [
   { method: '信用卡/金融卡', icon: creditCardIcon,routerTo:'/credit_card_form'},
   { method: '銀聯卡', icon: unionPayIcon,routerTo:'/credit_card_form'},
   { method: '超商付款', icon: cvPayIcon,routerTo:'/cvstore_form'},
-  { method: 'Web ATM', icon: webATMPayIcon,routerTo:'/atm_form' },
-  { method: 'ATM轉帳', icon: atmPayIcon,routerTo:'/atm_form' }
+  { method: 'Web ATM', icon: webATMPayIcon,routerTo:'/web_atm_form' },
+  { method: 'ATM轉帳', icon: atmPayIcon,routerTo:'/web_atm_form' }
 ]
 
 const Page = () => {

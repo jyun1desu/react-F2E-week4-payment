@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 const Success = styled.div`
 display: flex;
@@ -39,7 +40,7 @@ flex-direction: column;
 
 `
 
-const PayInfo  = styled.div`
+const PayInfo = styled.div`
     margin-top:70px;
     .detail{
       margin-bottom:35px;
@@ -56,12 +57,13 @@ const PayInfo  = styled.div`
 `
 
 const paymentDetail = [
-  { title: '付款超商', content: '全家便利商店' },
+  { title: '付款超商', content: '便利商店' },
   { title: '付款代碼', content: 'HSD6DJYUNYI523' },
   { title: '付款期限', content: '2019-08-08 23:59:59' }
 ]
 
 const CVSuccessPage = () => {
+  const store = useLocation().state.store;
   return (
     <Success>
       <div className="title_area">
@@ -72,7 +74,7 @@ const CVSuccessPage = () => {
         {paymentDetail.map(detail => {
           return (<div key={detail.content} className="detail">
             <p className="title">{detail.title}</p>
-            <p className="content">{detail.content}</p>
+            <p className="content">{detail.content==='便利商店'?`${store}${detail.content}`:detail.content}</p>
           </div>)
         })}
       </PayInfo>
