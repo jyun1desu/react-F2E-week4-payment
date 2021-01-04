@@ -5,7 +5,7 @@ import { color } from './style/color';
 import backgroundPattern from './assets/footer-background.svg';
 //router
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
@@ -83,7 +83,7 @@ const App = () =>{
             </div>
             <div className="main_info_box">
               <Switch>
-                <Route exact path="/react-F2E-week4-payment">
+                <Route exact path="/">
                   <PaymentMethods updateProgress={updateProgress}/>
                 </Route>
                 <Route path="/credit_card_form">

@@ -81,7 +81,7 @@ const SuccessPage = (props) => {
       </div>
       <Link
         className="button to_previous"
-        to="/react-F2E-week4-payment">返回首頁
+        to="/">返回首頁
       </Link>
     </Success>
   )
