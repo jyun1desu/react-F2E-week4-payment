@@ -279,7 +279,7 @@ const ATMForm = (props) => {
         <div className="button_area">
           <Link
             className="button to_previous"
-            to="/">回上一頁</Link>
+            to="/react-F2E-week4-payment">回上一頁</Link>
           {checkInputAllFilled ?
             <Link
               className="button to_next"

@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 //style
 import styled from 'styled-components';
 import { color } from './style/color';
@@ -83,22 +83,22 @@ const App = () =>{
             </div>
             <div className="main_info_box">
               <Switch>
-                <Route exact path="/">
+                <Route exact path="/react-F2E-week4-payment">
                   <PaymentMethods updateProgress={updateProgress}/>
                 </Route>
-                <Route exact path="/credit_card_form">
+                <Route path="/credit_card_form">
                   <CreditCardForm updateProgress={updateProgress}/>
                 </Route>
-                <Route exact path="/cvstore_form">
+                <Route path="/cvstore_form">
                   <CVStore updateProgress={updateProgress}/>
                 </Route>
-                <Route exact path="/web_atm_form">
+                <Route path="/web_atm_form">
                   <WebATMForm updateProgress={updateProgress}/>
                 </Route>
-                <Route exact path="/success">
+                <Route path="/success">
                   <SuccessPage updateProgress={updateProgress}/>
                 </Route>
-                <Route exact path="/cv_success">
+                <Route path="/cv_success">
                   <CVSuccessPage updateProgress={updateProgress}/>
                 </Route>
               </Switch>
