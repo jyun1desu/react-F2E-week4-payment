@@ -167,6 +167,7 @@ const FillInForm = styled.div`
             .fill_blanks{
               flex:100%;
               .input_blank{
+                text-align:left;
                 width:40%;
               }
             }
@@ -281,7 +282,7 @@ const CreditCardForm = () => {
     const isNumber = isOnlyNumber(strInput);
     const rightLength = strInput.length === 4;
     const validArray = [...creditCardNumberFormat]
-    validArray[index] = strInput.length ? (isNumber && rightLength) : true;
+    validArray[index] = strInput.length ? (isNumber && rightLength) : null;
     setCreditCardNumberValid(validArray)
     if ((isNumber && rightLength) && (index < 2)) {
       const nowInput = [...creditCardNumber];
@@ -299,13 +300,13 @@ const CreditCardForm = () => {
       monthIsRight = isMonth;
     }
     const validArray = [...expiryDateFormat];
-    validArray[index] = strInput.length ? (isNumber && rightLength && monthIsRight) : true;
+    validArray[index] = strInput.length ? (isNumber && rightLength && monthIsRight) : null;
     setExpiryDateValid(validArray)
   };
   const checkSecurityCode = function (strInput) {
     const isNumber = isOnlyNumber(strInput);
     const rightLength = strInput.length === 3;
-    const isValid = strInput.length ? (isNumber && rightLength) : true;
+    const isValid = strInput.length ? (isNumber && rightLength) : null;
     setSecuriyCodeValid(isValid)
   };
   const checkEmail = function (strInput) {
