@@ -14,7 +14,9 @@ import BackToStoreButton from './components/button';
 //views
 import PaymentMethods from './views/paymentMethods';
 import CreditCardForm from './views/creditCardForm';
-import SucessPage from './views/sucessPage';
+import CVStore from './views/chooseStore';
+import SuccessPage from './views/successPage';
+import CVSuccessPage from './views/cvSuccessPage';
 
 
 const Home = styled.div`
@@ -78,8 +80,14 @@ const App = () => {
                 <Route exact path="/credit_card_form">
                   <CreditCardForm/>
                 </Route>
-                <Route exact path="/sucess">
-                  <SucessPage/>
+                <Route exact path="/cvstore_form">
+                  <CVStore/>
+                </Route>
+                <Route exact path="/success">
+                  <SuccessPage/>
+                </Route>
+                <Route exact path="/cv_success">
+                  <CVSuccessPage/>
                 </Route>
               </Switch>
             </div>

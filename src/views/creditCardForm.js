@@ -352,7 +352,7 @@ const CreditCardForm = () => {
   return (
     <FillInForm>
       <div className="title_area">
-        <p className="title">STEP2：填寫付款資訊{checkInputAllFilled}</p>
+        <p className="title">STEP2：填寫付款資訊</p>
         <span className="method">信用卡/金融卡</span>
       </div>
 
@@ -479,7 +479,7 @@ const CreditCardForm = () => {
           {checkInputAllFilled ?
             <Link
               className="button to_next"
-              to="/sucess">確認付款</Link>
+              to="/success">確認付款</Link>
             : <button
               className="button disabled"
               disabled>確認付款</button>}
