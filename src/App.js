@@ -14,7 +14,7 @@ import BackToStoreButton from './components/button';
 //views
 import PaymentMethods from './views/paymentMethods';
 import CreditCardForm from './views/creditCardForm';
-// import SucessPage from './views/sucessPage';
+import SucessPage from './views/sucessPage';
 
 
 const Home = styled.div`
@@ -78,9 +78,9 @@ const App = () => {
                 <Route exact path="/credit_card_form">
                   <CreditCardForm/>
                 </Route>
-                {/* <Route exact path="/sucess">
+                <Route exact path="/sucess">
                   <SucessPage/>
-                </Route> */}
+                </Route>
               </Switch>
             </div>
           </main>

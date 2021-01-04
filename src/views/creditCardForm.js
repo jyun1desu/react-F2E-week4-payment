@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
 //img
@@ -256,6 +256,12 @@ const FillInForm = styled.div`
           color: #fff;
           background-color:${color.selected_color};
         }
+
+        &.disabled{
+          cursor: default;
+          background-color: #AFAFAF;
+          color:#fff;
+        }
       }
     }
 `
@@ -273,6 +279,13 @@ const CreditCardForm = () => {
   useEffect(() => {
     identifyCardOrganization();
   });
+
+  const checkInputAllFilled = useMemo(() => {
+    const isCreditCardNumberValid = !creditCardNumberFormat.some(status => status !== true);
+    const isExpiryDateValid = !expiryDateFormat.some(status => status !== true);
+    const allCorrectlyFilled = reconfirm && isCreditCardNumberValid && isExpiryDateValid && securiyCodeFormat && emailFormat;
+    return allCorrectlyFilled
+  }, [reconfirm, creditCardNumberFormat, expiryDateFormat, securiyCodeFormat, emailFormat]);
 
   const isOnlyNumber = function (strInput) {
     const reg = /^\d+$/
@@ -339,7 +352,7 @@ const CreditCardForm = () => {
   return (
     <FillInForm>
       <div className="title_area">
-        <p className="title">STEP2：填寫付款資訊</p>
+        <p className="title">STEP2：填寫付款資訊{checkInputAllFilled}</p>
         <span className="method">信用卡/金融卡</span>
       </div>
 
@@ -463,9 +476,13 @@ const CreditCardForm = () => {
           <Link
             className="button to_previous"
             to="/">回上一頁</Link>
-          <Link
-            className="button to_next"
-            to="/">確認付款</Link>
+          {checkInputAllFilled ?
+            <Link
+              className="button to_next"
+              to="/sucess">確認付款</Link>
+            : <button
+              className="button disabled"
+              disabled>確認付款</button>}
         </div>
       </form>
 
