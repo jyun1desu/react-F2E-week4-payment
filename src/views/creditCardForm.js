@@ -168,9 +168,13 @@ const FillInForm = styled.div`
           &.expiry_date,&.security_code{
             .fill_in{
               .input_blank{
-                width:80px;
+                margin-right:0;
+                width:70px;
                 &::placeholder{
                   font-size:12px;
+                }
+                @media ${device.tablet} {
+                  width:80px;
                 }
               }
 

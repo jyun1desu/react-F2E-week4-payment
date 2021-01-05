@@ -44,7 +44,7 @@ const Home = styled.div`
 
   .container{
     width: 100%;
-    height:80%;
+    height:77%;
     @media ${device.tablet} {
       flex-basis:75%;
       height:100%;
@@ -53,9 +53,12 @@ const Home = styled.div`
     .content{
       display:flex;
       height:100%;
+      position:relative;
 
       .sub_content{
-        display:none;
+        // display:none;
+        position:absolute;
+        z-index:20;
 
         @media ${device.tablet} {
           display:block;
@@ -79,7 +82,7 @@ const Home = styled.div`
         flex-basis:100%;
         height:100%;
         box-sizing: border-box;
-        padding:40px 20px 20px;
+        padding:50px 20px 20px;
         background: #FFFFFF;
         box-shadow: 0 2px 13px 0 rgba(0,0,0,0.08);
         z-index:10;

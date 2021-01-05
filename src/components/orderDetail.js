@@ -1,19 +1,44 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
+import { device } from '../style/breakpoints';
 
 const Block = styled.div`
     background-color:#F3F3F3;
-    padding:25px 40px 25px 25px;
     letter-spacing: 2px;
-    border-radius: 10px 0 0 10px;
     white-space:nowrap;
+    border-radius: 0 0 10px 0;
+    box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.08);
+    display:flex;
+    flex-direction: row-reverse;
+    align-items:flex-start;
+    @media ${device.tablet} {
+        border-radius: 10px 0 0 10px;
+        padding:25px 40px 25px 25px;
+        box-shadow: none;
+        display: block;
+    }
 
     .title{
         font-size: 18px;
         font-weight: 400;
+        letter-spacing: 2px;
+        padding: 15px;
+        writing-mode: vertical-lr;
+        @media ${device.tablet} {
+            writing-mode: horizontal-tb;
+            padding: 0;
+        }
+    }
+    .context{
+        padding: 15px;
+        @media ${device.tablet} {
+            padding: 0;
+        }
     }
     .each_detail{
-        margin-top:20px;
+        &+.each_detail{
+            margin-top:20px;
+        }
         .sub_title{
             color: ${color.input_hint_color};
         }
