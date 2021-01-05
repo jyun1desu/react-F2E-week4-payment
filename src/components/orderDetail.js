@@ -7,7 +7,6 @@ const Block = styled.div`
     background-color:#F3F3F3;
     letter-spacing: 2px;
     transition: 0.5s all;
-    white-space:nowrap;
     border-radius: 0 0 10px 0;
     position:relative;
     filter: drop-shadow(0px 1px 2px #D1D1D1);
@@ -22,14 +21,15 @@ const Block = styled.div`
     .title{
         display:flex;
         flex-direction: column;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 400;
-        padding: 15px;
+        padding: 12px;
         position:absolute;
         background-color:#F3F3F3;
         border-radius: 0 10px 10px 0;
         left:99%;
         @media ${device.tablet} {
+            font-size: 18px;
             flex-direction: row;
             position:static;
             padding: 0;
@@ -48,6 +48,9 @@ const Block = styled.div`
         }
         .sub_title{
             color: ${color.input_hint_color};
+        }
+        @media ${device.laptopL} {
+            white-space: nowrap;
         }
     }
 `

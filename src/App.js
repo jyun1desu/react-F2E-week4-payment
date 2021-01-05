@@ -45,8 +45,11 @@ const Home = styled.div`
   .container{
     width: 100%;
     @media ${device.tablet} {
-      width:75%;
+      width:90%;
       height:100%;
+    }
+    @media ${device.laptop} {
+      width:80%;
     }
 
     .content{
