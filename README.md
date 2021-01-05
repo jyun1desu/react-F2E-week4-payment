@@ -10,5 +10,11 @@
 ### 使用技術
 - React
 - React Hooks練習
+- react-router
 - styled-components
+---
+### 實現功能
+- RWD:手機、平板、電腦
+- 輸入字串檢查（數字、email）
+- 其他功能可以參考設計稿
 ---
