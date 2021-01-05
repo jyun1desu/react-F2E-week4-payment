@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 //style
 import styled from 'styled-components';
 import { color } from './style/color';
@@ -13,6 +13,7 @@ import {
 import NowProgress from './components/currentProgress';
 import OrderDetail from './components/orderDetail';
 import BackToStoreButton from './components/button';
+import FinishHint from './components/finishHint';
 //views
 import PaymentMethods from './views/paymentMethods';
 import CreditCardForm from './views/creditCardForm';
@@ -42,7 +43,6 @@ const Home = styled.div`
 
   .container{
     flex-basis: 75%;
-    z-index:1;
 
     .content{
       display:flex;
@@ -51,10 +51,16 @@ const Home = styled.div`
       .sub_content{
         flex-basis: 25%;
         transition:all 0.5s;
-        z-index:-10;
+        z-index:5;
 
         &.hide{
-          transform:translateX(95%);
+          transform:translateX(85%);
+          &>div{
+            .title,.context{
+              opacity:0;
+            }
+          }
+          }
         }
       }
 
@@ -65,6 +71,7 @@ const Home = styled.div`
         background: #FFFFFF;
         box-shadow: 0 2px 13px 0 rgba(0,0,0,0.08);
         border-radius: 0 10px 0 0;
+        z-index:10;
       }
     }
   }
@@ -72,10 +79,19 @@ const Home = styled.div`
 
 const App = () =>{
   const [nowProgress,setNowProgress] = useState('choosePayMethod')
+  const [showOrderList,toggleOrderList] = useState(true)
 
   const updateProgress = (status)=>{
     setNowProgress(status)
   }
+
+  const toggleList = () =>  {
+    if(nowProgress==='successHint'){
+      toggleOrderList(!showOrderList);
+    }
+  }
+
+  useEffect(toggleList,[nowProgress]);
 
   return (
     <Router>
@@ -83,9 +99,12 @@ const App = () =>{
         <div className="container">
           <NowProgress nowStep={nowProgress} />
           <main className="content">
-            <div className={`sub_content ${nowProgress==='successHint'?'hide':''}`}>
-              <OrderDetail />
-              <BackToStoreButton nowStep={nowProgress} text="返回商店" />
+            <div 
+            onClick={toggleList}
+            className={`sub_content ${showOrderList?'':'hide'}`}>
+              <FinishHint showOrderList={showOrderList}/>
+              <OrderDetail/>
+              <BackToStoreButton showOrderList={showOrderList} text="返回商店" />
             </div>
             <div className="main_info_box">
               <Switch>
