@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 //style
 import styled from 'styled-components';
 import { color } from './style/color';
+import { device } from './style/breakpoints';
 import backgroundPattern from './assets/footer-background.svg';
 //router
 import {
@@ -42,36 +43,53 @@ const Home = styled.div`
   }
 
   .container{
-    flex-basis: 75%;
+    width: 100%;
+    height:80%;
+    @media ${device.tablet} {
+      flex-basis:75%;
+      height:100%;
+    }
 
     .content{
       display:flex;
       height:100%;
 
       .sub_content{
-        flex-basis: 25%;
-        transition:all 0.5s;
-        z-index:5;
+        display:none;
 
-        &.hide{
-          transform:translateX(85%);
-          &>div{
-            .title,.context{
-              opacity:0;
-            }
+        @media ${device.tablet} {
+          display:block;
+          flex-basis: 25%;
+          transition:all 0.5s;
+          z-index:5;
+  
+          &.hide{
+            transform:translateX(85%);
+              &>div{
+                .title,.context{
+                  opacity:0;
+                }
+              }
           }
-          }
+        }
         }
       }
 
       .main_info_box{
-        flex-basis:75%;
+        flex-basis:100%;
+        height:100%;
         box-sizing: border-box;
-        padding:50px;
+        padding:40px 20px 20px;
         background: #FFFFFF;
         box-shadow: 0 2px 13px 0 rgba(0,0,0,0.08);
-        border-radius: 0 10px 0 0;
         z-index:10;
+        overflow:scroll;
+        @media ${device.tablet} {
+          flex-basis:75%;
+          border-radius: 0 10px 0 0;
+          padding:50px;
+          overflow:auto;
+        }
       }
     }
   }

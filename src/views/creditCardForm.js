@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
+import { device } from '../style/breakpoints';
 //img
 import visaIcon from '../assets/visa.svg';
 import jcbIcon from '../assets/jcb.svg';
@@ -10,6 +11,7 @@ import securityCodeIcon from '../assets/back-three.svg';
 import { Link } from 'react-router-dom';
 
 const FillInForm = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items:flex-start;
@@ -35,6 +37,7 @@ const FillInForm = styled.div`
     }
 
     form{
+      width: 100%;
       font-size:14px;
       letter-spacing:1.5px;
       box-sizing:border-box;
@@ -42,6 +45,7 @@ const FillInForm = styled.div`
       padding: 5px;
       .installment_options{
         display: flex;
+        flex-wrap:wrap;
         .option{
           cursor:pointer;
           &+.option{
@@ -86,6 +90,7 @@ const FillInForm = styled.div`
           margin-bottom: 10px;
         }
         .column{
+          flex-wrap:wrap;
           margin-bottom: 15px;
           .fill_in{
             display:flex;
@@ -93,13 +98,18 @@ const FillInForm = styled.div`
             .input_blank{
               border:1px solid ${color.input_hint_color};
               border-radius: 5px;
-              padding: 7px 12px;
+              padding: 4px;
               margin-right: 10px;
               color:#000;
               font-size:15px;
               letter-spacing:1.5px;
               font-weight:300;
               text-align:center;
+
+              @media ${device.tablet} {
+                padding: 7px 12px;
+              }
+
               &:focus{
                 outline:none;
               }
@@ -111,6 +121,10 @@ const FillInForm = styled.div`
 
           &.card_number{
             .fill_in{
+              flex-wrap: wrap;
+              @media ${device.tablet} {
+                flex-wrap: nowrap;
+              }
               .fill_blanks{
                 display:flex;
                 align-items:center;
@@ -119,15 +133,25 @@ const FillInForm = styled.div`
                 }
                 .dash{
                   display:inline-block;
-                  width:12px;
+                  width:7px;
+                  margin-right: 8px;
                   border-top:1px solid #000;
-                  margin-right: 10px;
                   vertical-align:middle;
+
+                  @media ${device.tablet} {
+                    width:12px;
+                    margin-right: 10px;
+                  }
                 }
               }
               .card_type{
                 display:flex;
-                margin-left:15px;
+                margin-left:0;
+                margin-top:10px;
+                @media ${device.tablet} {
+                  margin-left:15px;
+                  margin-top:0;
+                }
                 img{
                   width:45px;
                   &.isCard{

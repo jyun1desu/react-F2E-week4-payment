@@ -1,15 +1,23 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
+import { device } from '../style/breakpoints';
 
 const CurrentProgress = styled.div`
-  width:75%;
+  width:100%;
   margin-left:auto;
   display:flex;
   justify-content:center;
   user-select: none;
+
+  @media ${device.tablet} {
+    width:75%;
+    .bar{
+      margin: 40px 0;
+    }
+  }
   .bar{
     display: inline-block;
-    margin: 40px 0;
+    margin: 20px 0;
     position:relative;
 
   &::after{
@@ -54,18 +62,29 @@ const CurrentProgress = styled.div`
     .each_step{
       background-color:#AFAFAF;
       display: inline-block;
-      width:40px;
-      height:40px;
+      width:30px;
+      height:30px;
       border-radius:50%;
       text-align:center;
+
+      @media ${device.tablet} {
+        width:40px;
+        height:40px;
+      }
       &+.each_step{
         margin-left: 90px;
       }
       .number{
         color:#fff;
-        line-height:40px;
-        font-size:20px;
+        line-height:30px;
+        font-size:17px;
         vertical-align:middle;
+
+        @media ${device.tablet} {
+          line-height:40px;
+          font-size:20px;
+        }
+
       }
     }
   }

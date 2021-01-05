@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '../style/color';
+import { device } from '../style/breakpoints';
 //
 import creditCardIcon from '../assets/credit-card.svg';
 import unionPayIcon from '../assets/unionpay.svg';
@@ -28,13 +29,14 @@ const PaymentsPage = styled.div`
       display:flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top:90px;
+      margin-top:50px;
       width:100%;
+
+      @media ${device.tablet} {
+        margin-top:90px;
+      }
         
       .each_method{
-        &+.each_method{
-          margin-left: 20px;
-        }
         &.now_chosen_method{
           background-color:${color.selected_color};
           .icon{
@@ -44,17 +46,30 @@ const PaymentsPage = styled.div`
             color:#fff;
           }
         }
-        margin-bottom: 20px;
-        padding: 30px;
+        margin: 0 5% 20px;
+        padding: 15px;
         background:#f7f7f7;
         border-radius:5px;
         box-sizing: border-box;
-        flex: 0 1 30%;
+        flex: 0 1 40%;
         display:flex;
         flex-direction: column;
         justify-content: center;
+
+        @media ${device.tablet} {
+          padding: 30px;
+          margin: 0 0 20px 0;
+          flex: 0 1 30%;
+          &+.each_method{
+            margin-left: 20px;
+          }
+        }
+
           .icon{
-              max-height:55px;
+              max-height:35px;
+              @media ${device.tablet} {
+                max-height:55px;
+              }
           }
           .title{
               width:100%;
