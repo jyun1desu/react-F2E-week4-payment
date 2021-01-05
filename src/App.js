@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 //style
 import styled from 'styled-components';
 import { color } from './style/color';
@@ -77,21 +77,37 @@ const Home = styled.div`
   }
 `
 
-const App = () =>{
-  const [nowProgress,setNowProgress] = useState('choosePayMethod')
-  const [showOrderList,toggleOrderList] = useState(true)
+const App = () => {
+  const [nowProgress, setNowProgress] = useState('choosePayMethod')
+  const [showOrderList, toggleOrderList] = useState(true)
 
-  const updateProgress = (status)=>{
+  const updateProgress = (status) => {
     setNowProgress(status)
   }
 
-  const toggleList = () =>  {
-    if(nowProgress==='successHint'){
+  const toggleList = () => {
+    if (nowProgress === 'successHint') {
       toggleOrderList(!showOrderList);
     }
   }
+  const initListShow = () => {
+    switch (nowProgress) {
+      case 'choosePayMethod':
+        toggleOrderList(true);
+        break;
+      case 'fillForm':
+        toggleOrderList(true);
+        break;
+      case 'successHint':
+        toggleOrderList(false);
+        break;
+      default:
+        toggleOrderList(true);
+        break;
+    }
+  };
 
-  useEffect(toggleList,[nowProgress]);
+  useEffect(initListShow, [nowProgress]);
 
   return (
     <Router>
@@ -99,32 +115,32 @@ const App = () =>{
         <div className="container">
           <NowProgress nowStep={nowProgress} />
           <main className="content">
-            <div 
-            onClick={toggleList}
-            className={`sub_content ${showOrderList?'':'hide'}`}>
-              <FinishHint showOrderList={showOrderList}/>
-              <OrderDetail/>
+            <div
+              onClick={toggleList}
+              className={`sub_content ${showOrderList ? '' : 'hide'}`}>
+              <FinishHint showOrderList={showOrderList} />
+              <OrderDetail />
               <BackToStoreButton showOrderList={showOrderList} text="返回商店" />
             </div>
             <div className="main_info_box">
               <Switch>
                 <Route exact path="/">
-                  <PaymentMethods updateProgress={updateProgress}/>
+                  <PaymentMethods updateProgress={updateProgress} />
                 </Route>
                 <Route path="/credit_card_form">
-                  <CreditCardForm updateProgress={updateProgress}/>
+                  <CreditCardForm updateProgress={updateProgress} />
                 </Route>
                 <Route path="/cvstore_form">
-                  <CVStore updateProgress={updateProgress}/>
+                  <CVStore updateProgress={updateProgress} />
                 </Route>
                 <Route path="/web_atm_form">
-                  <WebATMForm updateProgress={updateProgress}/>
+                  <WebATMForm updateProgress={updateProgress} />
                 </Route>
                 <Route path="/success">
-                  <SuccessPage updateProgress={updateProgress}/>
+                  <SuccessPage updateProgress={updateProgress} />
                 </Route>
                 <Route path="/cv_success">
-                  <CVSuccessPage updateProgress={updateProgress}/>
+                  <CVSuccessPage updateProgress={updateProgress} />
                 </Route>
               </Switch>
             </div>
