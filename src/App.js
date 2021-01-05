@@ -34,36 +34,41 @@ const Home = styled.div`
     content: '';
     display:block;
     width:100%;
-    height: 23%;
     background-color: ${color.main_background_color};
     background-image: url(${backgroundPattern});
     background-size: 70px;
     position: fixed;
     bottom:0;
+    height: 25%;
   }
 
   .container{
     width: 100%;
-    height:77%;
     @media ${device.tablet} {
-      flex-basis:75%;
+      width:75%;
       height:100%;
     }
 
     .content{
       display:flex;
-      height:100%;
       position:relative;
+      height:80%;
+
+      @media ${device.tablet} {
+        height:100%;
+      }
 
       .sub_content{
-        // display:none;
         position:absolute;
+        height:102%;
+        top:-2%;
         z-index:20;
 
         @media ${device.tablet} {
           display:block;
           flex-basis: 25%;
           transition:all 0.5s;
+          position: static;
           z-index:5;
   
           &.hide{

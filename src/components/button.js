@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
+import { device } from '../style/breakpoints';
 
 const BackToPrevious = styled.button`
 color: #fff;
@@ -8,7 +9,14 @@ padding:10px 15px;
 letter-spacing: 1.5px;
 background-color:${color.main_font_color};
 border-radius: 5px;
-margin-top:20px;
+margin: 10px 0 0 10px;
+position: absolute;
+top:100%;
+@media ${device.tablet} {
+  position: static;
+  display:inline-block;
+  margin: 20px 0 0 0;
+}
 `
 
 const button = (props) => {

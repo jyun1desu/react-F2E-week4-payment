@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { color } from '../style/color';
 import { device } from '../style/breakpoints';
+import { useState } from 'react';
 
 const Block = styled.div`
     background-color:#F3F3F3;
     letter-spacing: 2px;
+    transition: 0.5s all;
     white-space:nowrap;
     border-radius: 0 0 10px 0;
-    box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.08);
-    display:flex;
-    flex-direction: row-reverse;
-    align-items:flex-start;
+    position:relative;
+    filter: drop-shadow(0px 1px 2px #D1D1D1);
     @media ${device.tablet} {
+        position:static;
         border-radius: 10px 0 0 10px;
         padding:25px 40px 25px 25px;
         box-shadow: none;
@@ -19,14 +20,20 @@ const Block = styled.div`
     }
 
     .title{
+        display:flex;
+        flex-direction: column;
         font-size: 18px;
         font-weight: 400;
-        letter-spacing: 2px;
         padding: 15px;
-        writing-mode: vertical-lr;
+        position:absolute;
+        background-color:#F3F3F3;
+        border-radius: 0 10px 10px 0;
+        left:99%;
         @media ${device.tablet} {
-            writing-mode: horizontal-tb;
+            flex-direction: row;
+            position:static;
             padding: 0;
+            margin-bottom:20px;
         }
     }
     .context{
@@ -45,10 +52,22 @@ const Block = styled.div`
     }
 `
 
-const OrderDetail = ({order_blcok}) => {
+const OrderDetail = () => {
+    const [showListMobile,toggleShowListMobile] = useState(false);
+    const toggleList = () => {
+        toggleShowListMobile(!showListMobile)
+        console.log(showListMobile)
+    }
     return (
-        <Block>
-            <p className="title">訂單資訊</p>
+        <Block style={{'right':`${showListMobile?'0':'100%'}`}}>
+            <p 
+            onClick={toggleList}
+            className="title">
+                <span>訂</span>
+                <span>單</span>
+                <span>資</span>
+                <span>訊</span>
+                </p>
             <div className="context">
                 <div className="each_detail">
                     <p className="sub_title">商品名稱：</p>
